@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/{any?}', function () {
-    return view('backend.admin');
+    return view('welcome');
 });
 
 
@@ -27,4 +27,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // category
 Route::post('add_category', 'CategoryController@add_category');
-Route::get('get_Category', 'CategoryController@getCategory');
+Route::get('category','CategoryController@all_category');

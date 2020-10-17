@@ -21,10 +21,12 @@ class CategoryController extends Controller
         return response()->json('success', 200);
     }
 
-    public function getCategory()
+    public function all_category()
     {
         $categories = Category::all();
-       return response()->json($categories, 200);
+        return response()->json([
+            'categories'=>$categories
+        ],200);
 
     }
 }

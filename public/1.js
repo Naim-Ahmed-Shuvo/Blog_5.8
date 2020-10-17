@@ -59,24 +59,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      categories: []
+      categoryItem: []
     };
   },
-  methods: {
-    getCategory: function getCategory() {
-      var _this = this;
-
-      axios.get("get_Category").then(function (response) {
-        _this.categories = response.data;
-        console.log(response);
-      });
+  computed: {
+    getallCategory: function getallCategory() {
+      return this.$store.getters.getCategory;
+      console.log(this.$store.getters.getCategory);
     }
   },
+  methods: {// getCategory() {
+    //     axios.get("get_Category").then(response => {
+    //         this.categories = response.data.name;
+    //         console.log(response);
+    //     });
+    // }
+  },
   mounted: function mounted() {
-    this.getCategory();
+    this.$store.dispatch("allCategory");
   } // computed: {
   //     getAllCategory() {
   //         // return this.$store.dispatch("getCategory");
@@ -143,7 +147,7 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.categories, function(category) {
+                      _vm._l(_vm.getallCategory, function(category, index) {
                         return _c("tr", { key: category.id }, [
                           _c("td", [_vm._v(_vm._s(category.name))]),
                           _vm._v(" "),

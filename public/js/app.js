@@ -63790,15 +63790,14 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     }
   },
   actions: {
-    getCategory: function getCategory(context) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/getCategory").then(function (response) {
-        // context.commit("categories", response.data.categories);
-        context.commit("setCategory", response.data);
+    allCategory: function allCategory(context) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/category").then(function (response) {
+        context.commit("categoreis", response.data.categories);
       });
     }
   },
   mutations: {
-    setCategory: function setCategory(state, data) {
+    categoreis: function categoreis(state, data) {
       return state.category = data;
     }
   }

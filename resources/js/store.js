@@ -14,16 +14,15 @@ const store = new Vuex.Store({
         }
     },
     actions: {
-        getCategory(context) {
-            axios.get("/getCategory").then(response => {
-                // context.commit("categories", response.data.categories);
-                context.commit("setCategory", response.data);
+        allCategory(context) {
+            axios.get("/category").then(response => {
+                context.commit("categoreis", response.data.categories);
             });
         }
     },
 
     mutations: {
-        setCategory(state, data) {
+        categoreis(state, data) {
             return (state.category = data);
         }
     }

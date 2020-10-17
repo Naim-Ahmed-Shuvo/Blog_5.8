@@ -30,7 +30,8 @@
 
                                     <tbody>
                                         <tr
-                                            v-for="category in categories"
+                                            v-for="(category,
+                                            index) in getallCategory"
                                             :key="category.id"
                                         >
                                             <td>{{ category.name }}</td>
@@ -52,19 +53,25 @@
 export default {
     data() {
         return {
-            categories: []
+            categoryItem: []
         };
     },
-    methods: {
-        getCategory() {
-            axios.get("get_Category").then(response => {
-                this.categories = response.data;
-                console.log(response);
-            });
+    computed: {
+        getallCategory() {
+            return this.$store.getters.getCategory;
+            console.log(this.$store.getters.getCategory);
         }
     },
+    methods: {
+        // getCategory() {
+        //     axios.get("get_Category").then(response => {
+        //         this.categories = response.data.name;
+        //         console.log(response);
+        //     });
+        // }
+    },
     mounted() {
-        this.getCategory();
+        this.$store.dispatch("allCategory");
     }
     // computed: {
     //     getAllCategory() {
