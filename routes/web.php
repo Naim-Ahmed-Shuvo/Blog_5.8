@@ -13,18 +13,13 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/{any?}', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-Route::get('/home', 'HomeController@index')->name('home');
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-// category
+// Route::get('{path}','HomeController@index')->where( 'path', '[\/\w\.-]*' );
+// Route::get('/{anypath}','HomeController@index')->where('path','.*');
 Route::post('add_category', 'CategoryController@add_category');
-Route::get('category','CategoryController@all_category');
+Route::get('all_category', 'CategoryController@all_category');
+Route::get('edit_category/{id}', 'CategoryController@edit_category');

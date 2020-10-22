@@ -6,30 +6,27 @@ import store from "./store.js";
 require("./bootstrap");
 
 // v_form
-import { HasError, AlertError } from "vform";
+import { Form, HasError, AlertError } from "vform";
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
+window.Form = Form;
 
-//sweet alert
-
-window.swal = swal;
-
-const Toast = swal.mixin({
+//sweetalert2
+import Swal from "sweetalert2";
+window.Swal = Swal;
+const Toast = Swal.mixin({
     toast: true,
     position: "top-end",
     showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: toast => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-    }
+    timer: 3000
 });
+window.Toast = Toast;
 
-window.toast = Toast;
-
+//laravue paginaton
+Vue.component("pagination", require("laravel-vue-pagination"));
 //loading components
-Vue.component("admin", require("./components/backend/admin.vue").default);
+// Vue.component("admin", require("./components/backend/admin.vue").default);
+// Vue.component("dashboard", require("./components/dashboard.vue").default);
 
 // vue instance
 const app = new Vue({
