@@ -16,10 +16,14 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/home', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 // Route::get('{path}','HomeController@index')->where( 'path', '[\/\w\.-]*' );
 // Route::get('/{anypath}','HomeController@index')->where('path','.*');
 Route::post('add_category', 'CategoryController@add_category');
 Route::get('all_category', 'CategoryController@all_category');
-Route::get('edit_category/{id}', 'CategoryController@edit_category');
+Route::get('/delete_category/{id}', 'CategoryController@delete_category');
+

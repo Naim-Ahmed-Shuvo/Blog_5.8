@@ -1,7 +1,7 @@
 import Vue from "vue";
 
 import router from "./route.js";
-import swal from "sweetalert2";
+import Swal from "sweetalert2";
 import store from "./store.js";
 require("./bootstrap");
 
@@ -12,7 +12,6 @@ Vue.component(AlertError.name, AlertError);
 window.Form = Form;
 
 //sweetalert2
-import Swal from "sweetalert2";
 window.Swal = Swal;
 const Toast = Swal.mixin({
     toast: true,
@@ -21,7 +20,8 @@ const Toast = Swal.mixin({
     timer: 3000
 });
 window.Toast = Toast;
-
+//filter
+import filter from "./filter";
 //laravue paginaton
 Vue.component("pagination", require("laravel-vue-pagination"));
 //loading components

@@ -35,42 +35,46 @@
                                     <tr>
                                         <th style="width: 10px">SL</th>
                                         <th>Name</th>
+                                        <th>Created</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr
-                                        v-for="(post, index) in categories.data"
-                                        :key="post.id"
+                                        v-for="(category,
+                                        index) in get_categories.data"
+                                        :key="category.id"
                                     >
                                         <td>{{ index + 1 }}</td>
-                                        <td>{{ post.name }}</td>
+                                        <td>{{ category.name }}</td>
                                         <td>
-                                            <router-link
-                                                :to="{
-                                                    name: 'edit_category',
-                                                    params: { id: post.id }
-                                                }"
-                                                href=""
-                                                class="btn btn-sm btn-info"
+                                            {{
+                                                category.created_at
+                                                    | time_format
+                                            }}
+                                        </td>
+                                        <td>
+                                            <a
+                                                class="btn btn-sm btn-info text-white"
                                                 ><i class="fa fa-edit"></i
-                                            ></router-link>
-                                            <router-link
-                                                :to="{
-                                                    name: 'delete_category'
-                                                }"
-                                                class="btn btn-danger btn-sm"
+                                            ></a>
+                                            <a
+                                                class="btn btn-danger btn-sm text-white"
+                                                @click.prevent="
+                                                    deleteCategory(category.id)
+                                                "
                                             >
                                                 <i class="fas fa-trash-alt"></i>
-                                            </router-link>
+                                            </a>
                                         </td>
                                     </tr>
+                                    <tr></tr>
                                 </tbody>
                             </table>
-                            <pagination
+                            <!-- <pagination
                                 :data="categories"
-                                @pagination-change-page="getResults"
-                            ></pagination>
+                                @pagination-change-page="getCategory"
+                            ></pagination> -->
                             <!-- Modal -->
                         </div>
                     </div>
@@ -89,14 +93,23 @@ export default {
     },
 
     methods: {
-        getResults(page = 1) {
-            axios.get("all_category?page=" + page).then(response => {
-                this.categories = response.data;
+        deleteCategory(id) {
+            axios.get("/delete_category/" + id).then(response => {
+                this.$store.dispatch("getCategory");
+                Toast.fire({
+                    icon: "error",
+                    title: "Category deleted successfully"
+                });
             });
         }
     },
+    computed: {
+        get_categories() {
+            return this.$store.getters.getCategory;
+        }
+    },
     mounted() {
-        this.getResults();
+        this.$store.dispatch("getCategory");
     }
 };
 </script>

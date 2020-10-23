@@ -26,11 +26,6 @@ const router = new VueRouter({
             path: "add_category",
             name: "add_category",
             component: () => import("./components/add_category.vue")
-        },
-        {
-            path: "edit_category/:id",
-            name: "edit_category",
-            component: () => import("./components/edit_category.vue")
         }
     ]
 });

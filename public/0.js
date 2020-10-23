@@ -91,6 +91,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -98,17 +102,26 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    getResults: function getResults() {
+    deleteCategory: function deleteCategory(id) {
       var _this = this;
 
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get("all_category?page=" + page).then(function (response) {
-        _this.categories = response.data;
-      });
+      axios.get("/delete_category/" + id).then(function (response) {
+        _this.$store.dispatch("getCategory");
+
+        Toast.fire({
+          icon: "error",
+          title: "Category deleted successfully"
+        });
+      })["catch"](function () {});
+    }
+  },
+  computed: {
+    get_categories: function get_categories() {
+      return this.$store.getters.getCategory;
     }
   },
   mounted: function mounted() {
-    this.getResults();
+    this.$store.dispatch("getCategory");
   }
 });
 
@@ -206,71 +219,55 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "card-body" },
-              [
+            _c("div", { staticClass: "card-body" }, [
+              _c("table", { staticClass: "table table-bordered text-center" }, [
+                _vm._m(0),
+                _vm._v(" "),
                 _c(
-                  "table",
-                  { staticClass: "table table-bordered text-center" },
+                  "tbody",
                   [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.categories.data, function(post, index) {
-                        return _c("tr", { key: post.id }, [
-                          _c("td", [_vm._v(_vm._s(index + 1))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(post.name))]),
+                    _vm._l(_vm.get_categories.data, function(category, index) {
+                      return _c("tr", { key: category.id }, [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(category.name))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(
+                                _vm._f("time_format")(category.created_at)
+                              ) +
+                              "\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._m(1, true),
                           _vm._v(" "),
                           _c(
-                            "td",
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-sm btn-info",
-                                  attrs: {
-                                    to: {
-                                      name: "edit_category",
-                                      params: { id: post.id }
-                                    },
-                                    href: ""
-                                  }
-                                },
-                                [_c("i", { staticClass: "fa fa-edit" })]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-danger btn-sm",
-                                  attrs: {
-                                    to: {
-                                      name: "delete_category"
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-trash-alt" })]
-                              )
-                            ],
-                            1
+                            "a",
+                            {
+                              staticClass: "btn btn-danger btn-sm text-white",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteCategory(category.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-trash-alt" })]
                           )
                         ])
-                      }),
-                      0
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("pagination", {
-                  attrs: { data: _vm.categories },
-                  on: { "pagination-change-page": _vm.getResults }
-                })
-              ],
-              1
-            )
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c("tr")
+                  ],
+                  2
+                )
+              ])
+            ])
           ])
         ])
       ])
@@ -288,8 +285,18 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Created")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Action")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "btn btn-sm btn-info text-white" }, [
+      _c("i", { staticClass: "fa fa-edit" })
     ])
   }
 ]
