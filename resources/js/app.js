@@ -24,9 +24,12 @@ window.Toast = Toast;
 import filter from "./filter";
 //laravue paginaton
 Vue.component("pagination", require("laravel-vue-pagination"));
-//loading components
-// Vue.component("admin", require("./components/backend/admin.vue").default);
-// Vue.component("dashboard", require("./components/dashboard.vue").default);
+Vue.component("Home", require("./components/frontend/home.vue").default);
+//mardown editor
+import "v-markdown-editor/dist/v-markdown-editor.css";
+import Editor from "v-markdown-editor";
+// global register
+Vue.use(Editor);
 
 // vue instance
 const app = new Vue({

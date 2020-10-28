@@ -25,4 +25,8 @@ class HomeController extends Controller
     {
         return view('welcome');
     }
+    function f_home(Request $request){
+        // $request->session()->flash('status', 'Task was successful!');
+        return view('home')->with('status', 'You are in home page!');
+    }
 }

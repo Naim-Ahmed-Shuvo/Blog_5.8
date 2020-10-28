@@ -42,7 +42,7 @@
                                 <tbody>
                                     <tr
                                         v-for="(category,
-                                        index) in get_categories.data"
+                                        index) in get_categories"
                                         :key="category.id"
                                     >
                                         <td>{{ index + 1 }}</td>
@@ -54,10 +54,13 @@
                                             }}
                                         </td>
                                         <td>
-                                            <a
+                                            <router-link
+                                                :to="
+                                                    `/edit_category/${category.id}`
+                                                "
                                                 class="btn btn-sm btn-info text-white"
                                                 ><i class="fa fa-edit"></i
-                                            ></a>
+                                            ></router-link>
                                             <a
                                                 class="btn btn-danger btn-sm text-white"
                                                 @click.prevent="
